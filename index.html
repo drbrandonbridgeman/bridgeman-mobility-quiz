@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Full Body Mobility Assessment | Bridgeman Health Solutions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:       #0d1f3c;
+      --navy-mid:   #152d54;
+      --navy-light: #1e3a6e;
+      --gold:       #c9892a;
+      --gold-light: #e8a93a;
+      --gold-pale:  #fdf3e2;
+      --blue:       #2a6496;
+      --blue-light: #3a85c4;
+      --blue-pale:  #eef5fb;
+      --white:      #ffffff;
+      --off-white:  #f6f8fc;
+      --gray-100:   #f1f4f8;
+      --gray-200:   #e2e8f0;
+      --gray-400:   #94a3b8;
+      --gray-600:   #4b5a72;
+      --gray-800:   #1e2d3d;
+      --red:        #ef4444;
+      --red-pale:   #fef2f2;
+      --green:      #22c55e;
+      --green-pale: #f0fdf4;
+      --radius:     14px;
+      --radius-sm:  10px;
+      --shadow:     0 2px 16px rgba(13,31,60,.10);
+      --shadow-md:  0 4px 24px rgba(13,31,60,.14);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--off-white);
+      color: var(--gray-800);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ── Header ── */
+    .header {
+      width: 100%; background: var(--navy);
+      padding: 14px 20px;
+      display: flex; align-items: center; gap: 12px;
+      position: sticky; top: 0; z-index: 200;
+      box-shadow: 0 2px 12px rgba(0,0,0,.25);
+    }
+    .header-logo {
+      width: 38px; height: 38px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; color: var(--navy); font-size: 14px;
+      letter-spacing: -.5px; flex-shrink: 0;
+    }
+    .header-info h1 { color: #fff; font-size: 14px; font-weight: 700; line-height: 1.2; }
+    .header-info p  { color: var(--gold-light); font-size: 11px; margin-top: 1px; }
+
+    /* ── Progress ── */
+    #progressWrap {
+      width: 100%; max-width: 640px;
+      padding: 14px 20px 0; display: none;
+    }
+    .progress-track { height: 5px; background: var(--gray-200); border-radius: 99px; overflow: hidden; }
+    .progress-fill  {
+      height: 100%;
+      background: linear-gradient(90deg, var(--blue-light), var(--gold));
+      border-radius: 99px;
+      transition: width .45s cubic-bezier(.4,0,.2,1);
+    }
+    .progress-label {
+      font-size: 11px; color: var(--gray-400);
+      display: flex; justify-content: space-between; margin-top: 5px;
+    }
+
+    /* ── Wrap ── */
+    .quiz-wrap { width: 100%; max-width: 640px; padding: 20px 20px 80px; }
+
+    /* ── Screens ── */
+    .screen { display: none; }
+    .screen.active { display: block; animation: slideIn .3s ease forwards; }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--white); border-radius: var(--radius);
+      padding: 24px 20px; box-shadow: var(--shadow-md); margin-bottom: 12px;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(145deg, var(--navy) 0%, var(--navy-light) 100%);
+      border-radius: var(--radius); padding: 36px 26px 30px;
+      text-align: center; color: #fff; margin-bottom: 14px;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 80% 20%, rgba(201,137,42,.18) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(201,137,42,.15);
+      border: 1px solid rgba(201,137,42,.4);
+      color: var(--gold-light);
+      font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .1em;
+      padding: 5px 13px; border-radius: 99px; margin-bottom: 18px;
+    }
+    .hero h2 { font-size: 28px; font-weight: 900; line-height: 1.15; margin-bottom: 12px; }
+    .hero h2 span { color: var(--gold-light); }
+    .hero p { font-size: 14px; color: rgba(255,255,255,.72); line-height: 1.65; margin-bottom: 24px; }
+    .hero-features { display: flex; flex-direction: column; gap: 9px; text-align: left; }
+    .hero-feature { display: flex; align-items: center; gap: 9px; font-size: 13px; color: rgba(255,255,255,.82); }
+    .hero-tick {
+      width: 22px; height: 22px;
+      background: rgba(201,137,42,.2); border: 1px solid rgba(201,137,42,.4);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 11px; flex-shrink: 0; color: var(--gold-light);
+    }
+
+    /* ── Doc card ── */
+    .doc-card {
+      display: flex; align-items: center; gap: 14px;
+      background: var(--white); border-radius: var(--radius);
+      padding: 16px 18px; box-shadow: var(--shadow); margin-bottom: 14px;
+    }
+    .doc-avatar {
+      width: 50px; height: 50px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--navy), var(--blue));
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 800; font-size: 17px; flex-shrink: 0;
+    }
+    .doc-info h3 { font-size: 14px; font-weight: 700; color: var(--navy); }
+    .doc-info .doc-sub { font-size: 12px; color: var(--gray-400); margin-top: 1px; }
+    .doc-quote {
+      font-size: 12px; font-style: italic; color: var(--blue);
+      border-left: 3px solid var(--gold); padding-left: 9px; margin-top: 6px; line-height: 1.4;
+    }
+
+    /* ── Question headers ── */
+    .q-step  { font-size: 11px; font-weight: 700; color: var(--blue); text-transform: uppercase; letter-spacing: .09em; margin-bottom: 6px; }
+    .q-title { font-size: 19px; font-weight: 800; color: var(--navy); line-height: 1.25; margin-bottom: 5px; }
+    .q-sub   { font-size: 13px; color: var(--gray-600); line-height: 1.5; margin-bottom: 18px; }
+
+    /* ── Section divider ── */
+    .section-head {
+      display: flex; align-items: center; gap: 10px;
+      margin: 20px 0 12px;
+    }
+    .section-head:first-child { margin-top: 0; }
+    .section-icon { font-size: 20px; }
+    .section-title { font-size: 14px; font-weight: 800; color: var(--navy); text-transform: uppercase; letter-spacing: .04em; }
+    .section-line { flex: 1; height: 1px; background: var(--gray-200); }
+
+    /* ── Option grid ── */
+    .opt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+    .opt-grid.col1 { grid-template-columns: 1fr; }
+    .opt {
+      border: 2px solid var(--gray-200); border-radius: var(--radius-sm);
+      padding: 11px 12px; cursor: pointer;
+      display: flex; align-items: flex-start; gap: 9px;
+      background: var(--white);
+      transition: border-color .18s, background .18s, transform .12s;
+      -webkit-tap-highlight-color: transparent; user-select: none;
+    }
+    .opt:active { transform: scale(.98); }
+    .opt:hover  { border-color: var(--blue-light); background: var(--blue-pale); }
+    .opt.selected {
+      border-color: var(--blue);
+      background: linear-gradient(135deg, #eef5fb, #e4f0f8);
+    }
+    .opt-box {
+      width: 19px; height: 19px; border: 2px solid var(--gray-200);
+      border-radius: 5px; flex-shrink: 0; margin-top: 1px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700; color: transparent;
+      transition: all .18s;
+    }
+    .opt.selected .opt-box { background: var(--blue); border-color: var(--blue); color: #fff; }
+    .opt-emoji { font-size: 17px; flex-shrink: 0; line-height: 1; }
+    .opt-label { font-size: 13px; font-weight: 500; color: var(--gray-800); line-height: 1.4; flex: 1; }
+
+    /* ── Radio opts ── */
+    .opt.radio.selected { border-color: var(--gold); background: var(--gold-pale); }
+    .opt.radio.selected .opt-box { background: var(--gold); border-color: var(--gold); }
+
+    /* ── Pain scale ── */
+    .scale-wrap { margin-bottom: 16px; }
+    .scale-label-row {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 7px;
+    }
+    .scale-name { font-size: 13px; font-weight: 700; color: var(--gray-800); }
+    .scale-val  { font-size: 12px; font-weight: 700; color: var(--blue); background: var(--blue-pale); padding: 2px 8px; border-radius: 99px; }
+    .scale-val.pain-high { color: var(--red); background: var(--red-pale); }
+    .scale-btns { display: flex; gap: 4px; }
+    .scale-btn {
+      flex: 1; padding: 8px 0; border: 2px solid var(--gray-200);
+      border-radius: 8px; font-size: 12px; font-weight: 700;
+      cursor: pointer; background: var(--white); color: var(--gray-600);
+      transition: all .15s; font-family: inherit;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .scale-btn:hover { border-color: var(--blue-light); color: var(--blue); }
+    .scale-btn.sel-stiff { background: var(--blue); border-color: var(--blue); color: #fff; }
+    .scale-btn.sel-pain  { background: var(--red); border-color: var(--red); color: #fff; }
+    .scale-btn.sel-0     { background: var(--green); border-color: var(--green); color: #fff; }
+    .scale-ends { display: flex; justify-content: space-between; margin-top: 4px; font-size: 10px; color: var(--gray-400); }
+
+    /* ── Joint row ── */
+    .joint-card {
+      background: var(--gray-100); border-radius: 12px;
+      padding: 16px; margin-bottom: 10px;
+    }
+    .joint-title {
+      font-size: 13px; font-weight: 800; color: var(--navy);
+      text-transform: uppercase; letter-spacing: .04em;
+      margin-bottom: 12px; display: flex; align-items: center; gap: 7px;
+    }
+    .joint-badge {
+      font-size: 10px; font-weight: 700; padding: 2px 7px;
+      border-radius: 99px; background: var(--blue-pale); color: var(--blue);
+    }
+
+    /* ── Two-col scales ── */
+    .two-scales { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+
+    /* ── Movement checks ── */
+    .move-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .move-chip {
+      padding: 6px 11px; border-radius: 99px;
+      border: 2px solid var(--gray-200); background: var(--white);
+      font-size: 12px; font-weight: 600; color: var(--gray-600);
+      cursor: pointer; transition: all .15s;
+      -webkit-tap-highlight-color: transparent; user-select: none;
+    }
+    .move-chip:hover   { border-color: var(--blue-light); color: var(--blue); }
+    .move-chip.sel     { border-color: var(--blue); background: var(--blue); color: #fff; }
+    .move-chip.sel-red { border-color: var(--red);  background: var(--red);  color: #fff; }
+
+    /* ── YesNo ── */
+    .yn-row { display: flex; gap: 8px; margin-top: 8px; }
+    .yn-btn {
+      flex: 1; padding: 10px; border: 2px solid var(--gray-200);
+      border-radius: var(--radius-sm); font-size: 13px; font-weight: 700;
+      cursor: pointer; background: var(--white); color: var(--gray-600);
+      font-family: inherit; transition: all .15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .yn-btn.sel-yes { border-color: var(--blue); background: var(--blue); color: #fff; }
+    .yn-btn.sel-no  { border-color: var(--gray-400); background: var(--gray-100); color: var(--gray-800); }
+
+    /* ── Form fields ── */
+    .form-group { margin-bottom: 14px; }
+    .form-label { display: block; font-size: 12px; font-weight: 700; color: var(--gray-600); margin-bottom: 5px; text-transform: uppercase; letter-spacing: .05em; }
+    .req { color: var(--red); }
+    .form-input {
+      width: 100%; padding: 12px 13px;
+      border: 2px solid var(--gray-200); border-radius: var(--radius-sm);
+      font-size: 15px; font-family: inherit; color: var(--gray-800);
+      outline: none; transition: border-color .18s; background: var(--white);
+    }
+    .form-input:focus { border-color: var(--blue); }
+    textarea.form-input { resize: vertical; min-height: 80px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    /* ── Buttons ── */
+    .btns { display: flex; flex-direction: column; gap: 8px; margin-top: 18px; }
+    .btn {
+      width: 100%; padding: 15px; border: none; border-radius: var(--radius-sm);
+      font-size: 15px; font-weight: 700; cursor: pointer;
+      font-family: inherit; transition: all .2s; letter-spacing: .01em;
+    }
+    .btn-navy {
+      background: linear-gradient(135deg, var(--navy), var(--navy-mid));
+      color: #fff; box-shadow: 0 4px 14px rgba(13,31,60,.28);
+    }
+    .btn-navy:hover  { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(13,31,60,.38); }
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: #fff; box-shadow: 0 4px 14px rgba(201,137,42,.35);
+    }
+    .btn-gold:hover  { transform: translateY(-1px); }
+    .btn-ghost {
+      background: transparent; color: var(--gray-400);
+      border: 2px solid var(--gray-200);
+    }
+    .btn-ghost:hover { border-color: var(--gray-400); color: var(--gray-600); }
+
+    /* ── Error ── */
+    .err-msg {
+      color: var(--red); font-size: 12px; font-weight: 600;
+      background: var(--red-pale); border-radius: 8px;
+      padding: 9px 12px; margin-top: 12px; display: none;
+    }
+
+    /* ── Privacy ── */
+    .privacy { font-size: 11px; color: var(--gray-400); text-align: center; margin-top: 10px; }
+
+    /* ── Thank you ── */
+    .thankyou-hero {
+      background: linear-gradient(145deg, var(--navy), var(--navy-light));
+      border-radius: var(--radius); padding: 40px 26px;
+      text-align: center; color: #fff; margin-bottom: 14px;
+    }
+    .thankyou-hero .big-icon { font-size: 52px; margin-bottom: 14px; }
+    .thankyou-hero h2 { font-size: 24px; font-weight: 900; margin-bottom: 10px; }
+    .thankyou-hero h2 span { color: var(--gold-light); }
+    .thankyou-hero p { font-size: 14px; color: rgba(255,255,255,.75); line-height: 1.7; }
+    .cta-card {
+      background: var(--white); border-radius: var(--radius);
+      padding: 22px; box-shadow: var(--shadow); text-align: center;
+    }
+    .cta-card p  { font-size: 14px; color: var(--gray-600); line-height: 1.6; margin-bottom: 14px; }
+    .cta-phone   { font-size: 18px; font-weight: 800; color: var(--navy); }
+    .cta-addr    { font-size: 12px; color: var(--gray-400); margin-top: 4px; }
+    .disclaimer  {
+      background: var(--gray-100); border-radius: var(--radius-sm);
+      padding: 12px 14px; font-size: 11px; color: var(--gray-400);
+      line-height: 1.6; text-align: center; margin-top: 12px;
+    }
+
+    @media (max-width: 480px) {
+      .opt-grid        { grid-template-columns: 1fr; }
+      .form-row        { grid-template-columns: 1fr; }
+      .two-scales      { grid-template-columns: 1fr; }
+      .hero h2         { font-size: 24px; }
+      .scale-btn       { font-size: 11px; padding: 7px 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-logo">BH</div>
+  <div class="header-info">
+    <h1>Bridgeman Health Solutions</h1>
+    <p>Full Body Mobility Assessment</p>
+  </div>
+</div>
+
+<!-- Progress -->
+<div id="progressWrap">
+  <div class="progress-track">
+    <div class="progress-fill" id="progressFill" style="width:0%"></div>
+  </div>
+  <div class="progress-label">
+    <span id="progressText">Step 1 of 6</span>
+    <span id="progressPct">17%</span>
+  </div>
+</div>
+
+<div class="quiz-wrap">
+
+<!-- ══════════════════════════════════════════
+     SCREEN 0 — Welcome
+══════════════════════════════════════════ -->
+<div class="screen active" id="s0">
+  <div class="hero">
+    <div class="hero-pill">🦴 Bridgeman Health Solutions</div>
+    <h2>Full Body<br><span>Mobility Assessment</span></h2>
+    <p>Tell us how your body is moving. We'll evaluate every joint so Dr. Bridgeman can design the most targeted treatment plan for you.</p>
+    <div class="hero-features">
+      <div class="hero-feature"><div class="hero-tick">✓</div>Covers every joint head to toe</div>
+      <div class="hero-feature"><div class="hero-tick">✓</div>Takes about 5 minutes</div>
+      <div class="hero-feature"><div class="hero-tick">✓</div>Dr. Bridgeman reviews every response personally</div>
+    </div>
+  </div>
+
+  <div class="doc-card">
+    <div class="doc-avatar">BB</div>
+    <div class="doc-info">
+      <h3>Dr. Brandon Bridgeman, DC</h3>
+      <div class="doc-sub">Sports Chiropractor · Bellevue, WA · 20+ Years</div>
+      <div class="doc-quote">"I don't guess, I test. This assessment is the first step."</div>
+    </div>
+  </div>
+
+  <div class="btns">
+    <button class="btn btn-navy" onclick="go(1)">Start My Assessment →</button>
+  </div>
+  <p style="text-align:center;font-size:12px;color:var(--gray-400);margin-top:10px;">⏱ About 5 minutes · No account needed</p>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SCREEN 1 — Goals & Overview
+══════════════════════════════════════════ -->
+<div class="screen" id="s1">
+  <div class="card">
+    <div class="q-step">Step 1 of 6</div>
+    <div class="q-title">What brings you in?</div>
+    <div class="q-sub">Select everything that applies.</div>
+    <div class="opt-grid" id="g-goals">
+      <div class="opt" data-v="pain"        onclick="tog(this,'g-goals')"><div class="opt-box"></div><div class="opt-emoji">🔥</div><div class="opt-label">Reduce pain or discomfort</div></div>
+      <div class="opt" data-v="stiffness"   onclick="tog(this,'g-goals')"><div class="opt-box"></div><div class="opt-emoji">🔒</div><div class="opt-label">Address joint stiffness</div></div>
+      <div class="opt" data-v="performance" onclick="tog(this,'g-goals')"><div class="opt-box"></div><div class="opt-emoji">🏆</div><div class="opt-label">Improve athletic performance</div></div>
+      <div class="opt" data-v="mobility"    onclick="tog(this,'g-goals')"><div class="opt-box"></div><div class="opt-emoji">🤸</div><div class="opt-label">Increase flexibility &amp; range of motion</div></div>
+      <div class="opt" data-v="injury"      onclick="tog(this,'g-goals')"><div class="opt-box"></div><div class="opt-emoji">🩹</div><div class="opt-label">Recover from an injury</div></div>
+      <div class="opt" data-v="postsurg"    onclick="tog(this,'g-goals')"><div class="opt-box"></div><div class="opt-emoji">🏥</div><div class="opt-label">Post-surgical rehab</div></div>
+      <div class="opt" data-v="wellness"    onclick="tog(this,'g-goals')"><div class="opt-box"></div><div class="opt-emoji">💚</div><div class="opt-label">General wellness &amp; prevention</div></div>
+      <div class="opt" data-v="other-goal"  onclick="tog(this,'g-goals')"><div class="opt-box"></div><div class="opt-emoji">✏️</div><div class="opt-label">Other</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="q-title" style="font-size:15px;margin-bottom:14px;">Overall Mobility Picture</div>
+
+    <div style="margin-bottom:16px;">
+      <div class="form-label">How would you describe your overall flexibility?</div>
+      <div class="opt-grid col1" id="g-flex" style="gap:7px;">
+        <div class="opt radio" data-v="very-stiff"    onclick="radio(this,'g-flex')"><div class="opt-box"></div><div class="opt-label">🔒 Very stiff / restricted</div></div>
+        <div class="opt radio" data-v="somewhat-stiff" onclick="radio(this,'g-flex')"><div class="opt-box"></div><div class="opt-label">🔐 Somewhat stiff</div></div>
+        <div class="opt radio" data-v="average"       onclick="radio(this,'g-flex')"><div class="opt-box"></div><div class="opt-label">✅ Average / normal</div></div>
+        <div class="opt radio" data-v="flexible"      onclick="radio(this,'g-flex')"><div class="opt-box"></div><div class="opt-label">🤸 More flexible than most</div></div>
+        <div class="opt radio" data-v="hypermobile"   onclick="radio(this,'g-flex')"><div class="opt-box"></div><div class="opt-label">🫀 Very flexible / "double-jointed"</div></div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:14px;">
+      <div class="form-label">Morning stiffness?</div>
+      <div class="yn-row">
+        <button type="button" class="yn-btn" data-yn="morning-stiff" data-v="Yes" onclick="yn(this)">Yes</button>
+        <button type="button" class="yn-btn" data-yn="morning-stiff" data-v="No" onclick="yn(this)">No</button>
+      </div>
+    </div>
+
+    <div style="margin-bottom:14px;">
+      <div class="form-label">Joints frequently pop, click, or feel unstable?</div>
+      <div class="yn-row">
+        <button type="button" class="yn-btn" data-yn="clicking" data-v="Yes" onclick="yn(this)">Yes</button>
+        <button type="button" class="yn-btn" data-yn="clicking" data-v="No" onclick="yn(this)">No</button>
+      </div>
+    </div>
+
+    <div>
+      <div class="form-label">Previously told you're hypermobile or "too flexible"?</div>
+      <div class="yn-row">
+        <button type="button" class="yn-btn" data-yn="hypermobile-hx" data-v="Yes" onclick="yn(this)">Yes</button>
+        <button type="button" class="yn-btn" data-yn="hypermobile-hx" data-v="No" onclick="yn(this)">No</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="err-msg" id="err1">Please tell us what brings you in before continuing.</div>
+  <div class="btns">
+    <button class="btn btn-navy" onclick="nextFrom(1)">Continue →</button>
+    <button class="btn btn-ghost" onclick="go(0)">← Back</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SCREEN 2 — Upper Body
+══════════════════════════════════════════ -->
+<div class="screen" id="s2">
+  <div class="card">
+    <div class="q-step">Step 2 of 6</div>
+    <div class="q-title">Upper Body</div>
+    <div class="q-sub">Rate stiffness and pain 0–10. Tap any limited movements.</div>
+
+    <!-- NECK -->
+    <div class="joint-card">
+      <div class="joint-title">🔵 Neck <span class="joint-badge">Cervical Spine</span></div>
+      <div class="two-scales">
+        <div class="scale-wrap">
+          <div class="scale-label-row"><span class="scale-name">Stiffness</span><span class="scale-val" id="lbl-neck-stiff">0</span></div>
+          <div class="scale-btns" id="sc-neck-stiff" data-key="neck_stiffness" data-type="stiff"></div>
+          <div class="scale-ends"><span>None</span><span>Severe</span></div>
+        </div>
+        <div class="scale-wrap">
+          <div class="scale-label-row"><span class="scale-name">Pain</span><span class="scale-val" id="lbl-neck-pain">0</span></div>
+          <div class="scale-btns" id="sc-neck-pain" data-key="neck_pain" data-type="pain"></div>
+          <div class="scale-ends"><span>None</span><span>Severe</span></div>
+        </div>
+      </div>
+      <div class="form-label" style="margin-bottom:6px;">Limited movements</div>
+      <div class="move-grid" data-group="neck-moves">
+        <div class="move-chip" onclick="chip(this)">Turn left</div>
+        <div class="move-chip" onclick="chip(this)">Turn right</div>
+        <div class="move-chip" onclick="chip(this)">Look up</div>
+        <div class="move-chip" onclick="chip(this)">Look down</div>
+        <div class="move-chip" onclick="chip(this)">Side-bend L</div>
+        <div class="move-chip" onclick="chip(this)">Side-bend R</div>
+        <div class="move-chip" onclick="chip(this)">None</div>
+      </div>
+      <div style="margin-top:12px;">
+        <div class="form-label" style="margin-bottom:6px;">Headaches from neck movement?</div>
+        <div class="yn-row">
+          <button type="button" class="yn-btn" data-yn="neck-ha" data-v="Yes" onclick="yn(this)">Yes</button>
+          <button type="button" class="yn-btn" data-yn="neck-ha" data-v="No" onclick="yn(this)">No</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- JAW -->
+    <div class="joint-card">
+      <div class="joint-title">🔵 Jaw <span class="joint-badge">TMJ</span></div>
+      <div class="two-scales">
+        <div class="scale-wrap">
+          <div class="scale-label-row"><span class="scale-name">Pain</span><span class="scale-val" id="lbl-jaw-pain">0</span></div>
+          <div class="scale-btns" id="sc-jaw-pain" data-key="jaw_pain" data-type="pain"></div>
+          <div class="scale-ends"><span>None</span><span>Severe</span></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;justify-content:center;">
+          <div>
+            <div class="form-label" style="margin-bottom:4px;">Jaw clicks/pops?</div>
+            <div class="yn-row">
+              <button type="button" class="yn-btn" data-yn="jaw-click" data-v="Yes" onclick="yn(this)">Yes</button>
+              <button type="button" class="yn-btn" data-yn="jaw-click" data-v="No" onclick="yn(this)">No</button>
+            </div>
+          </div>
+          <div>
+            <div class="form-label" style="margin-bottom:4px;">Clench/grind at night?</div>
+            <div class="yn-row">
+              <button type="button" class="yn-btn" data-yn="jaw-grind" data-v="Yes" onclick="yn(this)">Yes</button>
+              <button type="button" class="yn-btn" data-yn="jaw-grind" data-v="No" onclick="yn(this)">No</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- UPPER BACK -->
+    <div class="joint-card">
+      <div class="joint-title">🔵 Upper &amp; Mid Back <span class="joint-badge">Thoracic</span></div>
+      <div class="two-scales">
+        <div class="scale-wrap">
+          <div class="scale-label-row"><span class="scale-name">Stiffness</span><span class="scale-val" id="lbl-tspine-stiff">0</span></div>
+          <div class="scale-btns" id="sc-tspine-stiff" data-key="thoracic_stiffness" data-type="stiff"></div>
+          <div class="scale-ends"><span>None</span><span>Severe</span></div>
+        </div>
+        <div class="scale-wrap">
+          <div class="scale-label-row"><span class="scale-name">Pain</span><span class="scale-val" id="lbl-tspine-pain">0</span></div>
+          <div class="scale-btns" id="sc-tspine-pain" data-key="thoracic_pain" data-type="pain"></div>
+          <div class="scale-ends"><span>None</span><span>Severe</span></div>
+        </div>
+      </div>
+      <div class="form-label" style="margin-bottom:6px;">Limited movements</div>
+      <div class="move-grid" data-group="tspine-moves">
+        <div class="move-chip" onclick="chip(this)">Rotating</div>
+        <div class="move-chip" onclick="chip(this)">Bending forward</div>
+        <div class="move-chip" onclick="chip(this)">Bending backward</div>
+        <div class="move-chip" onclick="chip(this)">Side-bending</div>
+        <div class="move-chip" onclick="chip(this)">None</div>
+      </div>
+    </div>
+
+    <!-- SHOULDERS -->
+    <div class="joint-card">
+      <div class="joint-title">🔵 Shoulders</div>
+      <div class="two-scales">
+        <div class="scale-wrap">
+          <div class="scale-label-row"><span class="scale-name">Left Stiffness</span><span class="scale-val" id="lbl-lsho-stiff">0</span></div>
+          <div class="scale-btns" id="sc-lsho-stiff" data-key="left_shoulder_stiffness" data-type="stiff"></div>
+        </div>
+        <div class="scale-wrap">
+          <div class="scale-label-row"><span class="scale-name">Left Pain</span><span class="scale-val" id="lbl-lsho-pain">0</span></div>
+          <div class="scale-btns" id="sc-lsho-pain" data-key="left_shoulder_pain" data-type="pain"></div>
+        </div>
+      </div>
+      <div class="two-scales">
+        <div class="scale-wrap">
+          <div class="scale-label-row"><span class="scale-name">Right Stiffness</span><span class="scale-val" id="lbl-rsho-stiff">0</span></div>
+          <div class="scale-btns" id="sc-rsho-stiff" data-key="right_shoulder_stiffness" data-type="stiff"></div>
+        </div>
+        <div class="scale-wrap">
+          <div class="scale-label-row"><span class="scale-name">Right Pain</span><span class="scale-val" id="lbl-rsho-pain">0</span></div>
+          <div class="scale-btns" id="sc-rsho-pain" data-key="right_shoulder_pain" data-type="pain"></div>
+        </div>
+      </div>
+      <div class="form-label" style="margin-bottom:6px;">Limited movements</div>
+      <div class="move-grid" data-group="shoulder-moves">
+        <div class="move-chip" onclick="chip(this)">Overhead reach</div>
+        <div class="move-chip" onclick="chip(this)">Behind back</div>
+        <div class="move-chip" onclick="chip(this)">Across chest</div>
+        <div class="move-chip" onclick="chip(this)">Rotate outward</div>
+        <div class="move-chip" onclick="chip(this)">Rotate inward</div>
+        <div class="move-chip" onclick="chip(this)">None</div>
+      </div>
+      <div style="margin-top:10px;">
+        <div class="form-label" style="margin-bottom:4px;">History of dislocation or instability?</div>
+        <div class="yn-row">
+          <button type="button" class="yn-btn" data-yn="sho-disloc" data-v="Yes" onclick="yn(this)">Yes</button>
+          <button type="button" class="yn-btn" data-yn="sho-disloc" data-v="No" onclick="yn(this)">No</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ELBOWS -->
+    <div class="joint-card">
+      <div class="joint-title">🔵 Elbows</div>
+      <div class="two-scales">
+        <div class="scale-wrap">
+          <div class="scale-label-row"><span class="scale-name">Left Stiffness</span><span class="scale-val" id="lbl-lelb-stiff">0</span></div>
+          <div class="scale-btns" id="sc-lelb-stiff" data-key="left_elbow_stiffness" data-type="stiff"></div>
+        </div>
+        <div class="scale-wrap">
+          <div class="scale-label-row"><span class="scale-name">Left Pain</span><span class="scale-val" id="lbl-lelb-pain">0</span></div>
+          <div class="scale-btns" id="sc-lelb-pain" data-key="left_elbow_pain" data-type="pain"></div>
+        </div>
+      </div>
+      <div class="two-scales">
+        <div class="scale-wrap">
+          <div class="scale-label-row"><span class="scale-name">Right Stiffness</span><span class="scale-val" id="lbl-relb-stiff">0</span></div>
+          <div class="scale-btns" id="sc-relb-stiff" data-key="right_elbow_stiffness" data-type="stiff"></div>
+        </div>
+        <div class="scale-wrap">
+          <div class="scale-label-row"><span class="scale-name">Right Pain</span><span class="scale-val" id="lbl-relb-pain">0</span></div>
+          <div class="scale-btns" id="sc-relb-pain" data-key="right_elbow_pain" data-type="pain"></div>
+        </div>
+      </div>
+      <div class="form-label" style="margin-bottom:6px;">Pain location</div>
+      <div class="move-grid" data-group="elbow-loc">
+        <div class="move-chip" onclick="chip(this)">Inner (golfer's)</div>
+        <div class="move-chip" onclick="chip(this)">Outer (tennis)</div>
+        <div class="move-chip" onclick="chip(this)">Front</div>
+        <div class="move-chip" onclick="chip(this)">Back</div>
+        <div class="move-chip" onclick="chip(this)">None</div>
+      </div>
+    </div>
+
+    <!-- WRISTS & HANDS -->
+    <div class="joint-card">
+      <div class="joint-title">🔵 Wrists &amp; Hands</div>
+      <div class="two-scales">
+        <div class="scale-wrap">
+          <div class="scale-label-row"><span class="scale-name">Left Stiffness</span><span class="scale-val" id="lbl-lwrist-stiff">0</span></div>
+          <div class="scale-btns" id="sc-lwrist-stiff" data-key="left_wrist_stiffness" data-type="stiff"></div>
+        </div>
+        <div class="scale-wrap">
+          <div class="scale-label-row"><span class="scale-name">Left Pain</span><span class="scale-val" id="lbl-lwrist-pain">0</span></div>
+          <div class="scale-btns" id="sc-lwrist-pain" data-key="left_wrist_pain" data-type="pain"></div>
+        </div>
+      </div>
+      <div class="two-scales">
+        <div class="scale-wrap">
+          <div class="scale-label-row"><span class="scale-name">Right Stiffness</span><span class="scale-val" id="lbl-rwrist-stiff">0</span></div>
+          <div class="scale-btns" id="sc-rwrist-stiff" data-key="right_wrist_stiffness" data-type="stiff"></div>
+        </div>
+        <div class="scale-wrap">
+          <div class="scale-label-row"><span class="scale-name">Right Pain</span><span class="scale-val" id="lbl-rwrist-pain">0</span></div>
+          <div class="scale-btns" id="sc-rwrist-pain" data-key="right_wrist_pain" data-type="pain"></div>
+        </div>
+      </div>
+      <div class="form-label" style="margin-bottom:6px;">Issues with</div>
+      <div class="move-grid" data-group="wrist-issues">
+        <div class="move-chip" onclick="chip(this)">Gripping</div>
+        <div class="move-chip" onclick="chip(this)">Pinching</div>
+        <div class="move-chip" onclick="chip(this)">Wrist forward</div>
+        <div class="move-chip" onclick="chip(this)">Wrist back</div>
+        <div class="move-chip" onclick="chip(this)">Tingling fingers</div>
+        <div class="move-chip" onclick="chip(this)">None</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="btns">
+    <button class="btn btn-navy" onclick="go(3)">Continue →</button>
+    <button class="btn btn-ghost" onclick="go(1)">← Back</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SCREEN 3 — Lower Body
+══════════════════════════════════════════ -->
+<div class="screen" id="s3">
+  <div class="card">
+    <div class="q-step">Step 3 of 6</div>
+    <div class="q-title">Lower Body</div>
+    <div class="q-sub">Rate stiffness and pain 0–10. Tap any limited movements.</div>
+
+    <!-- LOW BACK -->
+    <div class="joint-card">
+      <div class="joint-title">🔵 Low Back <span class="joint-badge">Lumbar Spine</span></div>
+      <div class="two-scales">
+        <div class="scale-wrap">
+          <div class="scale-label-row"><span class="scale-name">Stiffness</span><span class="scale-val" id="lbl-lback-stiff">0</span></div>
+          <div class="scale-btns" id="sc-lback-stiff" data-key="low_back_stiffness" data-type="stiff"></div>
+          <div class="scale-ends"><span>None</span><span>Severe</span></div>
+        </div>
+        <div class="scale-wrap">
+          <div class="scale-label-row"><span class="scale-name">Pain</span><span class="scale-val" id="lbl-lback-pain">0</span></div>
+          <div class="scale-btns" id="sc-lback-pain" data-key="low_back_pain" data-type="pain"></div>
+          <div class="scale-ends"><span>None</span><span>Severe</span></div>
+        </div>
+      </div>
+      <div class="form-label" style="margin-bottom:6px;">Limited movements</div>
+      <div class="move-grid" data-group="lback-moves">
+        <div class="move-chip" onclick="chip(this)">Bending forward</div>
+        <div class="move-chip" onclick="chip(this)">Bending backward</div>
+        <div class="move-chip" onclick="chip(this)">Rotating left</div>
+        <div class="move-chip" onclick="chip(this)">Rotating right</div>
+        <div class="move-chip" onclick="chip(this)">Side-bending</div>
+        <div class="move-chip" onclick="chip(this)">None</div>
+      </div>
+      <div style="margin-top:10px;">
+        <div class="form-label" style="margin-bottom:6px;">Pain travels into</div>
+        <div class="move-grid" data-group="lback-radiate">
+          <div class="move-chip" onclick="chip(this)">Buttock</div>
+          <div class="move-chip" onclick="chip(this)">Hip</div>
+          <div class="move-chip" onclick="chip(this)">Thigh</div>
+          <div class="move-chip" onclick="chip(this)">Below knee</div>
+          <div class="move-chip" onclick="chip(this)">Foot</div>
+          <div class="move-chip" onclick="chip(this)">Stays in back</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SI JOINT -->
+    <div class="joint-card">
+      <div class="joint-title">🔵 SI Joint <span class="joint-badge">Pelvis</span></div>
+      <div class="two-scales">
+        <div class="scale-wrap">
+          <div class="scale-label-row"><span class="scale-name">Stiffness</span><span class="scale-val" id="lbl-si-stiff">0</span></div>
+          <div class="scale-btns" id="sc-si-stiff" data-key="si_stiffness" data-type="stiff"></div>
+        </div>
+        <div class="scale-wrap">
+          <div class="scale-label-row"><span class="scale-name">Pain</span><span class="scale-val" id="lbl-si-pain">0</span></div>
+          <div class="scale-btns" id="sc-si-pain" data-key="si_pain" data-type="pain"></div>
+        </div>
+      </div>
+      <div class="form-label" style="margin-bottom:6px;">Worse with</div>
+      <div class="move-grid" data-group="si-worse">
+        <div class="move-chip" onclick="chip(this)">Standing</div>
+        <div class="move-chip" onclick="chip(this)">Rolling in bed</div>
+        <div class="move-chip" onclick="chip(this)">Single-leg activities</div>
+        <div class="move-chip" onclick="chip(this)">Prolonged sitting</div>
+        <div class="move-chip" onclick="chip(this)">N/A</div>
+      </div>
+    </div>
+
+    <!-- HIPS -->
+    <div class="joint-card">
+      <div class="joint-title">🔵 Hips</div>
+      <div class="two-scales">
+        <div class="scale-wrap">
+          <div class="scale-label-row"><span class="scale-name">Left Stiffness</span><span class="scale-val" id="lbl-lhip-stiff">0</span></div>
+          <div class="scale-btns" id="sc-lhip-stiff" data-key="left_hip_stiffness" data-type="stiff"></div>
+        </div>
+        <div class="scale-wrap">
+          <div class="scale-label-row"><span class="scale-name">Left Pain</span><span class="scale-val" id="lbl-lhip-pain">0</span></div>
+          <div class="scale-btns" id="sc-lhip-pain" data-key="left_hip_pain" data-type="pain"></div>
+        </div>
+      </div>
+      <div class="two-scales">
+        <div class="scale-wrap">
+          <div class="scale-label-row"><span class="scale-name">Right Stiffness</span><span class="scale-val" id="lbl-rhip-stiff">0</span></div>
+          <div class="scale-btns" id="sc-rhip-stiff" data-key="right_hip_stiffness" data-type="stiff"></div>
+        </div>
+        <div class="scale-wrap">
+          <div class="scale-label-row"><span class="scale-name">Right Pain</span><span class="scale-val" id="lbl-rhip-pain">0</span></div>
+          <div class="scale-btns" id="sc-rhip-pain" data-key="right_hip_pain" data-type="pain"></div>
+        </div>
+      </div>
+      <div class="form-label" style="margin-bottom:6px;">Limited movements</div>
+      <div class="move-grid" data-group="hip-moves">
+        <div class="move-chip" onclick="chip(this)">Deep squat</div>
+        <div class="move-chip" onclick="chip(this)">Cross legs (figure-4)</div>
+        <div class="move-chip" onclick="chip(this)">Internal rotation</div>
+        <div class="move-chip" onclick="chip(this)">External rotation</div>
+        <div class="move-chip" onclick="chip(this)">Walking/push-off</div>
+        <div class="move-chip" onclick="chip(this)">Stepping sideways</div>
+        <div class="move-chip" onclick="chip(this)">None</div>
+      </div>
+      <div style="margin-top:10px;">
+        <div class="form-label" style="margin-bottom:4px;">Hip feels unstable or "too open"?</div>
+        <div class="yn-row">
+          <button type="button" class="yn-btn" data-yn="hip-unstable" data-v="Yes" onclick="yn(this)">Yes</button>
+          <button type="button" class="yn-btn" data-yn="hip-unstable" data-v="No" onclick="yn(this)">No</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- KNEES -->
+    <div class="joint-card">
+      <div class="joint-title">🔵 Knees</div>
+      <div class="two-scales">
+        <div class="scale-wrap">
+          <div class="scale-label-row"><span class="scale-name">Left Stiffness</span><span class="scale-val" id="lbl-lknee-stiff">0</span></div>
+          <div class="scale-btns" id="sc-lknee-stiff" data-key="left_knee_stiffness" data-type="stiff"></div>
+        </div>
+        <div class="scale-wrap">
+          <div class="scale-label-row"><span class="scale-name">Left Pain</span><span class="scale-val" id="lbl-lknee-pain">0</span></div>
+          <div class="scale-btns" id="sc-lknee-pain" data-key="left_knee_pain" data-type="pain"></div>
+        </div>
+      </div>
+      <div class="two-scales">
+        <div class="scale-wrap">
+          <div class="scale-label-row"><span class="scale-name">Right Stiffness</span><span class="scale-val" id="lbl-rknee-stiff">0</span></div>
+          <div class="scale-btns" id="sc-rknee-stiff" data-key="right_knee_stiffness" data-type="stiff"></div>
+        </div>
+        <div class="scale-wrap">
+          <div class="scale-label-row"><span class="scale-name">Right Pain</span><span class="scale-val" id="lbl-rknee-pain">0</span></div>
+          <div class="scale-btns" id="sc-rknee-pain" data-key="right_knee_pain" data-type="pain"></div>
+        </div>
+      </div>
+      <div class="form-label" style="margin-bottom:6px;">Limited movements</div>
+      <div class="move-grid" data-group="knee-moves">
+        <div class="move-chip" onclick="chip(this)">Bending fully</div>
+        <div class="move-chip" onclick="chip(this)">Straightening</div>
+        <div class="move-chip" onclick="chip(this)">Squatting</div>
+        <div class="move-chip" onclick="chip(this)">Stairs up</div>
+        <div class="move-chip" onclick="chip(this)">Stairs down</div>
+        <div class="move-chip" onclick="chip(this)">None</div>
+      </div>
+      <div style="margin-top:10px;display:flex;gap:16px;flex-wrap:wrap;">
+        <div style="flex:1;min-width:140px;">
+          <div class="form-label" style="margin-bottom:4px;">Feels unstable or gives way?</div>
+          <div class="yn-row">
+            <button type="button" class="yn-btn" data-yn="knee-unstable" data-v="Yes" onclick="yn(this)">Yes</button>
+            <button type="button" class="yn-btn" data-yn="knee-unstable" data-v="No" onclick="yn(this)">No</button>
+          </div>
+        </div>
+        <div style="flex:1;min-width:140px;">
+          <div class="form-label" style="margin-bottom:4px;">Hyperextends past straight?</div>
+          <div class="yn-row">
+            <button type="button" class="yn-btn" data-yn="knee-hyper" data-v="Yes" onclick="yn(this)">Yes</button>
+            <button type="button" class="yn-btn" data-yn="knee-hyper" data-v="No" onclick="yn(this)">No</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ANKLES -->
+    <div class="joint-card">
+      <div class="joint-title">🔵 Ankles</div>
+      <div class="two-scales">
+        <div class="scale-wrap">
+          <div class="scale-label-row"><span class="scale-name">Left Stiffness</span><span class="scale-val" id="lbl-lankle-stiff">0</span></div>
+          <div class="scale-btns" id="sc-lankle-stiff" data-key="left_ankle_stiffness" data-type="stiff"></div>
+        </div>
+        <div class="scale-wrap">
+          <div class="scale-label-row"><span class="scale-name">Left Pain</span><span class="scale-val" id="lbl-lankle-pain">0</span></div>
+          <div class="scale-btns" id="sc-lankle-pain" data-key="left_ankle_pain" data-type="pain"></div>
+        </div>
+      </div>
+      <div class="two-scales">
+        <div class="scale-wrap">
+          <div class="scale-label-row"><span class="scale-name">Right Stiffness</span><span class="scale-val" id="lbl-rankle-stiff">0</span></div>
+          <div class="scale-btns" id="sc-rankle-stiff" data-key="right_ankle_stiffness" data-type="stiff"></div>
+        </div>
+        <div class="scale-wrap">
+          <div class="scale-label-row"><span class="scale-name">Right Pain</span><span class="scale-val" id="lbl-rankle-pain">0</span></div>
+          <div class="scale-btns" id="sc-rankle-pain" data-key="right_ankle_pain" data-type="pain"></div>
+        </div>
+      </div>
+      <div class="form-label" style="margin-bottom:6px;">Limited movements</div>
+      <div class="move-grid" data-group="ankle-moves">
+        <div class="move-chip" onclick="chip(this)">Flexing up (squat/lunge)</div>
+        <div class="move-chip" onclick="chip(this)">Pointing down</div>
+        <div class="move-chip" onclick="chip(this)">Rolling inward</div>
+        <div class="move-chip" onclick="chip(this)">Rolling outward</div>
+        <div class="move-chip" onclick="chip(this)">None</div>
+      </div>
+      <div style="margin-top:10px;">
+        <div class="form-label" style="margin-bottom:4px;">History of sprains or instability?</div>
+        <div class="yn-row">
+          <button type="button" class="yn-btn" data-yn="ankle-sprain" data-v="Yes" onclick="yn(this)">Yes</button>
+          <button type="button" class="yn-btn" data-yn="ankle-sprain" data-v="No" onclick="yn(this)">No</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- FEET -->
+    <div class="joint-card">
+      <div class="joint-title">🔵 Feet &amp; Toes</div>
+      <div class="two-scales">
+        <div class="scale-wrap">
+          <div class="scale-label-row"><span class="scale-name">Left Pain</span><span class="scale-val" id="lbl-lfoot-pain">0</span></div>
+          <div class="scale-btns" id="sc-lfoot-pain" data-key="left_foot_pain" data-type="pain"></div>
+        </div>
+        <div class="scale-wrap">
+          <div class="scale-label-row"><span class="scale-name">Right Pain</span><span class="scale-val" id="lbl-rfoot-pain">0</span></div>
+          <div class="scale-btns" id="sc-rfoot-pain" data-key="right_foot_pain" data-type="pain"></div>
+        </div>
+      </div>
+      <div class="form-label" style="margin-bottom:6px;">Pain location</div>
+      <div class="move-grid" data-group="foot-loc">
+        <div class="move-chip" onclick="chip(this)">Heel</div>
+        <div class="move-chip" onclick="chip(this)">Arch</div>
+        <div class="move-chip" onclick="chip(this)">Ball of foot</div>
+        <div class="move-chip" onclick="chip(this)">Big toe</div>
+        <div class="move-chip" onclick="chip(this)">Other toes</div>
+        <div class="move-chip" onclick="chip(this)">None</div>
+      </div>
+      <div style="margin-top:10px;">
+        <div class="form-label" style="margin-bottom:4px;">History of plantar fasciitis?</div>
+        <div class="yn-row">
+          <button type="button" class="yn-btn" data-yn="plantar" data-v="Yes" onclick="yn(this)">Yes</button>
+          <button type="button" class="yn-btn" data-yn="plantar" data-v="No" onclick="yn(this)">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="btns">
+    <button class="btn btn-navy" onclick="go(4)">Continue →</button>
+    <button class="btn btn-ghost" onclick="go(2)">← Back</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SCREEN 4 — Neurological & History
+══════════════════════════════════════════ -->
+<div class="screen" id="s4">
+  <div class="card">
+    <div class="q-step">Step 4 of 6</div>
+    <div class="q-title">Neurological &amp; Soft Tissue</div>
+    <div class="q-sub">These help us understand nerve involvement and tissue quality.</div>
+
+    <div style="margin-bottom:16px;">
+      <div class="form-label">Overall muscle tightness throughout your body</div>
+      <div class="scale-wrap" style="margin-top:8px;">
+        <div class="scale-label-row"><span class="scale-name">Tightness</span><span class="scale-val" id="lbl-tightness">0</span></div>
+        <div class="scale-btns" id="sc-tightness" data-key="overall_tightness" data-type="stiff"></div>
+        <div class="scale-ends"><span>No tightness</span><span>Extremely tight</span></div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:14px;">
+      <div class="form-label">Numbness, tingling, or burning anywhere?</div>
+      <div class="yn-row">
+        <button type="button" class="yn-btn" data-yn="numbness" data-v="Yes" onclick="yn(this)">Yes</button>
+        <button type="button" class="yn-btn" data-yn="numbness" data-v="No" onclick="yn(this)">No</button>
+      </div>
+      <input type="text" class="form-input" id="numbness-loc" placeholder="If yes — where? (e.g. left hand, right foot)" style="margin-top:8px;" />
+    </div>
+
+    <div style="margin-bottom:14px;">
+      <div class="form-label">Areas of muscle weakness?</div>
+      <div class="yn-row">
+        <button type="button" class="yn-btn" data-yn="weakness" data-v="Yes" onclick="yn(this)">Yes</button>
+        <button type="button" class="yn-btn" data-yn="weakness" data-v="No" onclick="yn(this)">No</button>
+      </div>
+      <input type="text" class="form-input" id="weakness-loc" placeholder="If yes — where?" style="margin-top:8px;" />
+    </div>
+
+    <div style="margin-bottom:14px;">
+      <div class="form-label">Areas that feel like scar tissue, knots, or "stuck" tissue?</div>
+      <div class="yn-row">
+        <button type="button" class="yn-btn" data-yn="scar" data-v="Yes" onclick="yn(this)">Yes</button>
+        <button type="button" class="yn-btn" data-yn="scar" data-v="No" onclick="yn(this)">No</button>
+      </div>
+      <input type="text" class="form-input" id="scar-loc" placeholder="If yes — where?" style="margin-top:8px;" />
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="q-title" style="font-size:16px;margin-bottom:16px;">History &amp; Lifestyle</div>
+
+    <div class="form-group">
+      <label class="form-label">Previous injuries, surgeries, or fractures</label>
+      <textarea class="form-input" id="injuries" placeholder="e.g. ACL tear 2018, rotator cuff surgery 2021..."></textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Current physical activity</label>
+      <textarea class="form-input" id="activity" placeholder="e.g. Running 3x/week, weightlifting 4x/week, recreational soccer..." style="min-height:70px;"></textarea>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Occupation</label>
+        <input type="text" class="form-input" id="occupation" placeholder="e.g. Nurse, office worker..." />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Primary work posture</label>
+        <select class="form-input" id="posture">
+          <option value="">Select...</option>
+          <option>Seated / desk</option>
+          <option>Standing</option>
+          <option>Physical labor</option>
+          <option>Mixed</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Sleep quality</label>
+        <select class="form-input" id="sleep-quality">
+          <option value="">Select...</option>
+          <option>Poor</option>
+          <option>Fair</option>
+          <option>Good</option>
+          <option>Excellent</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Avg. hours/night</label>
+        <input type="number" class="form-input" id="sleep-hrs" placeholder="e.g. 7" min="1" max="12" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="form-label">Current stress level</div>
+      <div class="scale-wrap" style="margin-top:8px;">
+        <div class="scale-label-row"><span class="scale-name">Stress</span><span class="scale-val" id="lbl-stress">0</span></div>
+        <div class="scale-btns" id="sc-stress" data-key="stress_level" data-type="stiff"></div>
+        <div class="scale-ends"><span>No stress</span><span>Overwhelming</span></div>
+      </div>
+    </div>
+
+    <div class="form-group" style="margin-bottom:0;">
+      <label class="form-label">Anything else Dr. Bridgeman should know?</label>
+      <textarea class="form-input" id="extra-notes" placeholder="Previous diagnoses, medications, specific concerns..." style="min-height:80px;"></textarea>
+    </div>
+  </div>
+
+  <div class="btns">
+    <button class="btn btn-navy" onclick="go(5)">Continue →</button>
+    <button class="btn btn-ghost" onclick="go(3)">← Back</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SCREEN 5 — Goals Detail
+══════════════════════════════════════════ -->
+<div class="screen" id="s5">
+  <div class="card">
+    <div class="q-step">Step 5 of 6</div>
+    <div class="q-title">One More Thing</div>
+    <div class="q-sub">Tell us a bit more so Dr. Bridgeman can prepare for your visit.</div>
+
+    <div class="form-group">
+      <label class="form-label">What specific movement or activity do you most want to improve? <span class="req">*</span></label>
+      <textarea class="form-input" id="goal-detail" placeholder="e.g. I want to squat without knee pain, throw a baseball without shoulder pain, sleep without waking up stiff..." style="min-height:90px;"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">What would a successful outcome look like for you?</label>
+      <textarea class="form-input" id="goal-success" placeholder="e.g. Play with my kids pain-free, get back to training 5x/week..." style="min-height:80px;"></textarea>
+    </div>
+
+    <div class="form-group" style="margin-bottom:0;">
+      <label class="form-label">Are you currently seeing any other provider for this issue?</label>
+      <div class="yn-row" style="margin-top:8px;">
+        <button type="button" class="yn-btn" data-yn="other-provider" data-v="Yes" onclick="yn(this)">Yes</button>
+        <button type="button" class="yn-btn" data-yn="other-provider" data-v="No" onclick="yn(this)">No</button>
+      </div>
+      <input type="text" class="form-input" id="other-provider-name" placeholder="If yes — who?" style="margin-top:8px;" />
+    </div>
+  </div>
+
+  <div class="err-msg" id="err5">Please describe what you'd like to improve before continuing.</div>
+  <div class="btns">
+    <button class="btn btn-navy" onclick="nextFrom(5)">Continue →</button>
+    <button class="btn btn-ghost" onclick="go(4)">← Back</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SCREEN 6 — Contact Info
+══════════════════════════════════════════ -->
+<div class="screen" id="s6">
+  <div class="card">
+    <div class="q-step">Step 6 of 6</div>
+    <div class="q-title">Almost Done!</div>
+    <div class="q-sub">Where should we send your results? Dr. Bridgeman's team will review your intake and follow up.</div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">First Name <span class="req">*</span></label>
+        <input type="text" class="form-input" id="fname" placeholder="First" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Last Name <span class="req">*</span></label>
+        <input type="text" class="form-input" id="lname" placeholder="Last" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Email Address <span class="req">*</span></label>
+      <input type="email" class="form-input" id="email" placeholder="your@email.com" />
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Phone Number <span class="req">*</span></label>
+      <input type="tel" class="form-input" id="phone" placeholder="(425) 000-0000" />
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Date of Birth</label>
+        <input type="date" class="form-input" id="dob" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Referred by</label>
+        <input type="text" class="form-input" id="referral" placeholder="Name or source" />
+      </div>
+    </div>
+  </div>
+
+  <div class="err-msg" id="err6">Please fill in your name, email, and phone to submit.</div>
+  <div class="btns">
+    <button class="btn btn-gold" id="submitBtn" onclick="submitForm()">Submit My Assessment →</button>
+    <button class="btn btn-ghost" onclick="go(5)">← Back</button>
+  </div>
+  <p class="privacy">🔒 Your information is private and only shared with Dr. Bridgeman's team.</p>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SCREEN 7 — Thank You
+══════════════════════════════════════════ -->
+<div class="screen" id="s7">
+  <div class="thankyou-hero">
+    <div class="big-icon">✅</div>
+    <h2>Assessment<br><span>Received!</span></h2>
+    <p>Dr. Bridgeman's team has your intake and will be in touch within 24 hours to discuss next steps and get you scheduled.</p>
+  </div>
+
+  <div class="cta-card">
+    <p>Questions in the meantime? Give us a call — we're happy to help.</p>
+    <div class="cta-phone">📞 (425) 753-2235</div>
+    <div class="cta-addr">827 Bellevue Way NE Suite 200 · Bellevue, WA 98004</div>
+  </div>
+
+  <div class="disclaimer">
+    ⚕️ This assessment is a screening tool and does not replace a clinical evaluation. Dr. Bridgeman will review your responses before making any clinical recommendations.
+  </div>
+</div>
+
+</div><!-- /quiz-wrap -->
+
+<script>
+// ── State ──
+var answers = {};
+var TOTAL_STEPS = 6;
+
+// ── Navigation ──
+function go(n) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('s' + n).classList.add('active');
+  window.scrollTo(0, 0);
+  updateProgress(n);
+}
+
+function updateProgress(n) {
+  var wrap = document.getElementById('progressWrap');
+  if (n === 0 || n === 7) { wrap.style.display = 'none'; return; }
+  wrap.style.display = 'block';
+  var pct = Math.round((n / TOTAL_STEPS) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = 'Step ' + n + ' of ' + TOTAL_STEPS;
+  document.getElementById('progressPct').textContent = pct + '%';
+}
+
+function nextFrom(n) {
+  var err = document.getElementById('err' + n);
+  if (n === 1) {
+    var sel = document.querySelectorAll('#g-goals .opt.selected');
+    if (sel.length === 0) { err.style.display = 'block'; return; }
+    answers.goals = Array.from(sel).map(o => o.dataset.v).join(', ');
+  }
+  if (n === 5) {
+    var gd = document.getElementById('goal-detail').value.trim();
+    if (!gd) { err.style.display = 'block'; return; }
+    answers.goal_detail = gd;
+  }
+  if (err) err.style.display = 'none';
+  go(n + 1);
+}
+
+// ── Checkbox toggle ──
+function tog(el, group) {
+  el.classList.toggle('selected');
+}
+
+// ── Radio ──
+function radio(el, group) {
+  document.querySelectorAll('#' + group + ' .opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  answers[group] = el.dataset.v;
+}
+
+// ── Yes/No ──
+function yn(btn) {
+  var key = btn.dataset.yn;
+  document.querySelectorAll('[data-yn="' + key + '"]').forEach(b => {
+    b.classList.remove('sel-yes', 'sel-no');
+  });
+  btn.classList.add(btn.dataset.v === 'Yes' ? 'sel-yes' : 'sel-no');
+  answers[key] = btn.dataset.v;
+}
+
+// ── Movement chips ──
+function chip(el) {
+  el.classList.toggle('sel');
+}
+
+// ── Build scale buttons ──
+function buildScale(containerId, lblId, key, type) {
+  var container = document.getElementById(containerId);
+  if (!container) return;
+  for (var i = 0; i <= 10; i++) {
+    (function(val) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'scale-btn';
+      btn.textContent = val;
+      btn.addEventListener('click', function() {
+        container.querySelectorAll('.scale-btn').forEach(b => {
+          b.classList.remove('sel-stiff', 'sel-pain', 'sel-0');
+        });
+        var cls = val === 0 ? 'sel-0' : (type === 'pain' ? 'sel-pain' : 'sel-stiff');
+        btn.classList.add(cls);
+        var lbl = document.getElementById(lblId);
+        if (lbl) {
+          lbl.textContent = val;
+          lbl.className = 'scale-val' + (val >= 7 && type === 'pain' ? ' pain-high' : '');
+        }
+        answers[key] = val;
+      });
+      container.appendChild(btn);
+    })(i);
+  }
+}
+
+// ── Init all scales ──
+var scales = [
+  ['sc-neck-stiff',   'lbl-neck-stiff',   'neck_stiffness',             'stiff'],
+  ['sc-neck-pain',    'lbl-neck-pain',    'neck_pain',                  'pain'],
+  ['sc-jaw-pain',     'lbl-jaw-pain',     'jaw_pain',                   'pain'],
+  ['sc-tspine-stiff', 'lbl-tspine-stiff', 'thoracic_stiffness',         'stiff'],
+  ['sc-tspine-pain',  'lbl-tspine-pain',  'thoracic_pain',              'pain'],
+  ['sc-lsho-stiff',   'lbl-lsho-stiff',   'left_shoulder_stiffness',    'stiff'],
+  ['sc-lsho-pain',    'lbl-lsho-pain',    'left_shoulder_pain',         'pain'],
+  ['sc-rsho-stiff',   'lbl-rsho-stiff',   'right_shoulder_stiffness',   'stiff'],
+  ['sc-rsho-pain',    'lbl-rsho-pain',    'right_shoulder_pain',        'pain'],
+  ['sc-lelb-stiff',   'lbl-lelb-stiff',   'left_elbow_stiffness',       'stiff'],
+  ['sc-lelb-pain',    'lbl-lelb-pain',    'left_elbow_pain',            'pain'],
+  ['sc-relb-stiff',   'lbl-relb-stiff',   'right_elbow_stiffness',      'stiff'],
+  ['sc-relb-pain',    'lbl-relb-pain',    'right_elbow_pain',           'pain'],
+  ['sc-lwrist-stiff', 'lbl-lwrist-stiff', 'left_wrist_stiffness',       'stiff'],
+  ['sc-lwrist-pain',  'lbl-lwrist-pain',  'left_wrist_pain',            'pain'],
+  ['sc-rwrist-stiff', 'lbl-rwrist-stiff', 'right_wrist_stiffness',      'stiff'],
+  ['sc-rwrist-pain',  'lbl-rwrist-pain',  'right_wrist_pain',           'pain'],
+  ['sc-lback-stiff',  'lbl-lback-stiff',  'low_back_stiffness',         'stiff'],
+  ['sc-lback-pain',   'lbl-lback-pain',   'low_back_pain',              'pain'],
+  ['sc-si-stiff',     'lbl-si-stiff',     'si_stiffness',               'stiff'],
+  ['sc-si-pain',      'lbl-si-pain',      'si_pain',                    'pain'],
+  ['sc-lhip-stiff',   'lbl-lhip-stiff',   'left_hip_stiffness',         'stiff'],
+  ['sc-lhip-pain',    'lbl-lhip-pain',    'left_hip_pain',              'pain'],
+  ['sc-rhip-stiff',   'lbl-rhip-stiff',   'right_hip_stiffness',        'stiff'],
+  ['sc-rhip-pain',    'lbl-rhip-pain',    'right_hip_pain',             'pain'],
+  ['sc-lknee-stiff',  'lbl-lknee-stiff',  'left_knee_stiffness',        'stiff'],
+  ['sc-lknee-pain',   'lbl-lknee-pain',   'left_knee_pain',             'pain'],
+  ['sc-rknee-stiff',  'lbl-rknee-stiff',  'right_knee_stiffness',       'stiff'],
+  ['sc-rknee-pain',   'lbl-rknee-pain',   'right_knee_pain',            'pain'],
+  ['sc-lankle-stiff', 'lbl-lankle-stiff', 'left_ankle_stiffness',       'stiff'],
+  ['sc-lankle-pain',  'lbl-lankle-pain',  'left_ankle_pain',            'pain'],
+  ['sc-rankle-stiff', 'lbl-rankle-stiff', 'right_ankle_stiffness',      'stiff'],
+  ['sc-rankle-pain',  'lbl-rankle-pain',  'right_ankle_pain',           'pain'],
+  ['sc-lfoot-pain',   'lbl-lfoot-pain',   'left_foot_pain',             'pain'],
+  ['sc-rfoot-pain',   'lbl-rfoot-pain',   'right_foot_pain',            'pain'],
+  ['sc-tightness',    'lbl-tightness',    'overall_tightness',          'stiff'],
+  ['sc-stress',       'lbl-stress',       'stress_level',               'stiff'],
+];
+scales.forEach(function(s) { buildScale(s[0], s[1], s[2], s[3]); });
+
+// ── Collect chips from a group ──
+function collectChips(groupAttr) {
+  var chips = document.querySelectorAll('[data-group="' + groupAttr + '"] .move-chip.sel');
+  return Array.from(chips).map(c => c.textContent).join(', ') || 'None selected';
+}
+
+// ── Submit ──
+function submitForm() {
+  var fname = document.getElementById('fname').value.trim();
+  var lname = document.getElementById('lname').value.trim();
+  var email = document.getElementById('email').value.trim();
+  var phone = document.getElementById('phone').value.trim();
+  var err = document.getElementById('err6');
+
+  if (!fname || !lname || !email || !phone) { err.style.display = 'block'; return; }
+  err.style.display = 'none';
+
+  var btn = document.getElementById('submitBtn');
+  btn.textContent = 'Submitting…';
+  btn.disabled = true;
+
+  // Collect all answers
+  var data = Object.assign({}, answers, {
+    name: fname + ' ' + lname,
+    email: email,
+    phone: phone,
+    dob: document.getElementById('dob').value,
+    referral: document.getElementById('referral').value,
+    overall_flexibility: (document.querySelector('#g-flex .opt.selected') || {}).dataset && document.querySelector('#g-flex .opt.selected').dataset.v,
+    goals: (Array.from(document.querySelectorAll('#g-goals .opt.selected')).map(o => o.querySelector('.opt-label').textContent).join(', ')),
+    goal_detail: document.getElementById('goal-detail').value,
+    goal_success: document.getElementById('goal-success').value,
+    occupation: document.getElementById('occupation').value,
+    posture: document.getElementById('posture').value,
+    sleep_quality: document.getElementById('sleep-quality').value,
+    sleep_hours: document.getElementById('sleep-hrs').value,
+    previous_injuries: document.getElementById('injuries').value,
+    activity: document.getElementById('activity').value,
+    extra_notes: document.getElementById('extra-notes').value,
+    other_provider: document.getElementById('other-provider-name').value,
+    numbness_location: document.getElementById('numbness-loc').value,
+    weakness_location: document.getElementById('weakness-loc').value,
+    scar_location: document.getElementById('scar-loc').value,
+    // Movement limitations
+    neck_movements: collectChips('neck-moves'),
+    thoracic_movements: collectChips('tspine-moves'),
+    shoulder_movements: collectChips('shoulder-moves'),
+    elbow_pain_location: collectChips('elbow-loc'),
+    wrist_issues: collectChips('wrist-issues'),
+    low_back_movements: collectChips('lback-moves'),
+    low_back_radiates_to: collectChips('lback-radiate'),
+    si_worse_with: collectChips('si-worse'),
+    hip_movements: collectChips('hip-moves'),
+    knee_movements: collectChips('knee-moves'),
+    ankle_movements: collectChips('ankle-moves'),
+    foot_pain_location: collectChips('foot-loc'),
+    _subject: 'BHS Mobility Assessment — ' + fname + ' ' + lname,
+    _captcha: 'false',
+    _template: 'table'
+  });
+
+  fetch('https://formsubmit.co/ajax/drbrandonbridgeman@gmail.com', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify(data)
+  })
+  .then(function(r) { return r.json(); })
+  .then(function() { go(7); })
+  .catch(function() {
+    // Still show thank you — don't block the patient experience
+    go(7);
+  });
+}
+</script>
+</body>
+</html>
