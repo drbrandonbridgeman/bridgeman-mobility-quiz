@@ -1373,9 +1373,11 @@ function submitForm() {
     ankle_movements:     collectChips('ankle_moves'),
     foot_pain_location:  collectChips('foot_loc'),
     // Email config
-    _subject:  'BHS Mobility Assessment — ' + fname + ' ' + lname,
-    _captcha:  'false',
-    _template: 'table',
+    _subject:      'BHS Mobility Assessment — ' + fname + ' ' + lname,
+    _captcha:      'false',
+    _template:     'table',
+    _replyto:      email,
+    _autoresponse: 'Hi ' + fname + ',\n\nThank you for completing your Full Body Mobility Assessment with Bridgeman Health Solutions.\n\nDr. Bridgeman has received your intake and will personally review your responses before your visit. Our team will be in touch within 24 hours to discuss next steps and get you scheduled.\n\nIf you have any questions in the meantime:\n\n(425) 753-2235\n827 Bellevue Way NE Suite 200, Bellevue WA 98004\nbridgemanhealthsolutions.com\n\nWe look forward to helping you move and feel your best.\n\n- Dr. Brandon Bridgeman & The BHS Team\n\n"I do not guess, I test."\nBridgeman Health Solutions | Sports Chiropractic | Bellevue, WA',
   });
 
   fetch('https://formsubmit.co/ajax/drbrandonbridgeman@gmail.com', {
