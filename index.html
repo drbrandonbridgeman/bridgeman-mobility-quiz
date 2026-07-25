@@ -418,6 +418,51 @@
     /* ── Privacy ── */
     .privacy { font-size: 11px; color: var(--gray-400); text-align: center; margin-top: 10px; font-weight: 500; }
 
+    /* ── Score ring ── */
+    .score-wrap { text-align: center; padding: 10px 0 20px; }
+    .score-ring {
+      width: 120px; height: 120px; border-radius: 50%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      margin: 0 auto 12px;
+      position: relative;
+      box-shadow: 0 4px 24px rgba(10,22,40,.15);
+    }
+    .score-ring.grade-a { background: linear-gradient(135deg,#16a34a,#22c55e); }
+    .score-ring.grade-b { background: linear-gradient(135deg,#2563eb,#3b82f6); }
+    .score-ring.grade-c { background: linear-gradient(135deg,#d97706,#f59e0b); }
+    .score-ring.grade-d { background: linear-gradient(135deg,#dc2626,#ef4444); }
+    .score-num  { font-size: 38px; font-weight: 900; color: #fff; line-height: 1; }
+    .score-of   { font-size: 12px; font-weight: 600; color: rgba(255,255,255,.75); }
+    .score-label { font-size: 16px; font-weight: 800; color: var(--navy); margin-bottom: 4px; }
+    .score-grade { font-size: 13px; color: var(--gray-600); }
+
+    /* ── Priority area cards ── */
+    .priority-area {
+      border-radius: 12px; border: 1.5px solid var(--gray-200);
+      padding: 14px 16px; margin-bottom: 8px; background: var(--white);
+    }
+    .priority-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+    .priority-name   { font-size: 13px; font-weight: 800; color: var(--navy); text-transform: uppercase; letter-spacing: .04em; flex: 1; }
+    .priority-score  { font-size: 11px; font-weight: 800; padding: 3px 9px; border-radius: 99px; }
+    .priority-score.low  { background: #dcfce7; color: #15803d; }
+    .priority-score.mid  { background: #fef9c3; color: #854d0e; }
+    .priority-score.high { background: #ffedd5; color: #9a3412; }
+    .priority-score.sev  { background: #fee2e2; color: #991b1b; }
+
+    .rx-section { margin-bottom: 8px; }
+    .rx-section:last-child { margin-bottom: 0; }
+    .rx-type {
+      font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .07em;
+      color: var(--gray-400); margin-bottom: 5px;
+    }
+    .rx-pills { display: flex; flex-wrap: wrap; gap: 5px; }
+    .rx-pill  {
+      font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 99px;
+    }
+    .rx-pill.stretch { background: var(--blue-pale); color: var(--blue); }
+    .rx-pill.rollout { background: #f0fdf4; color: #15803d; }
+    .rx-pill.trigger { background: var(--gold-pale); color: var(--gold); }
+
     /* ── Thank you ── */
     .ty-hero {
       background: linear-gradient(150deg, var(--navy), var(--navy-light));
@@ -481,7 +526,7 @@
 <div class="quiz-wrap">
 
 <!-- ══════════════════════════
-     S0 — Welcome
+     S0 - Welcome
 ══════════════════════════ -->
 <div class="screen active" id="s0">
   <div class="hero">
@@ -489,7 +534,7 @@
     <h2>Full Body<br><em>Mobility Assessment</em></h2>
     <p class="hero-sub">Tell us how your body is moving. We evaluate every joint so Dr. Bridgeman can build the most targeted treatment plan for you.</p>
     <div class="hero-checks">
-      <div class="hero-check"><div class="hero-check-icon">✓</div>Every joint — head to toe</div>
+      <div class="hero-check"><div class="hero-check-icon">✓</div>Every joint - head to toe</div>
       <div class="hero-check"><div class="hero-check-icon">✓</div>Takes about 5 minutes</div>
       <div class="hero-check"><div class="hero-check-icon">✓</div>Dr. Bridgeman reviews every response personally</div>
     </div>
@@ -511,13 +556,13 @@
 </div>
 
 <!-- ══════════════════════════
-     S1 — Goals & Overview
+     S1 - Goals & Overview
 ══════════════════════════ -->
 <div class="screen" id="s1">
   <div class="card">
     <div class="q-step">Step 1 of 6</div>
     <div class="q-title">What brings you in?</div>
-    <div class="q-sub">Select everything that applies — choose as many as you want.</div>
+    <div class="q-sub">Select everything that applies - choose as many as you want.</div>
 
     <div class="opt-grid" id="g-goals">
       <div class="opt" data-v="pain"        onclick="tog(this)"><div class="opt-box"></div><div class="opt-emoji">🔥</div><div class="opt-label">Reduce pain or discomfort</div></div>
@@ -578,13 +623,13 @@
 </div>
 
 <!-- ══════════════════════════
-     S2 — Upper Body
+     S2 - Upper Body
 ══════════════════════════ -->
 <div class="screen" id="s2">
   <div class="card">
     <div class="q-step">Step 2 of 6</div>
     <div class="q-title">Upper Body</div>
-    <div class="q-sub">Rate stiffness &amp; pain 0–10. Tap any movements that feel limited or painful.</div>
+    <div class="q-sub">Rate stiffness &amp; pain 0-10. Tap any movements that feel limited or painful.</div>
 
     <!-- NECK -->
     <div class="joint-card">
@@ -713,8 +758,8 @@
       </div>
       <div class="move-label">Pain location</div>
       <div class="chips" data-group="elbow_loc">
-        <div class="chip" onclick="chip(this)">Inner — golfer's</div>
-        <div class="chip" onclick="chip(this)">Outer — tennis</div>
+        <div class="chip" onclick="chip(this)">Inner - golfer's</div>
+        <div class="chip" onclick="chip(this)">Outer - tennis</div>
         <div class="chip" onclick="chip(this)">Front</div>
         <div class="chip" onclick="chip(this)">Back</div>
         <div class="chip" onclick="chip(this)">None</div>
@@ -754,13 +799,13 @@
 </div>
 
 <!-- ══════════════════════════
-     S3 — Lower Body
+     S3 - Lower Body
 ══════════════════════════ -->
 <div class="screen" id="s3">
   <div class="card">
     <div class="q-step">Step 3 of 6</div>
     <div class="q-title">Lower Body</div>
-    <div class="q-sub">Rate stiffness &amp; pain 0–10. Tap any movements that feel limited or painful.</div>
+    <div class="q-sub">Rate stiffness &amp; pain 0-10. Tap any movements that feel limited or painful.</div>
 
     <!-- LOW BACK -->
     <div class="joint-card">
@@ -955,7 +1000,7 @@
 </div>
 
 <!-- ══════════════════════════
-     S4 — Neuro & History
+     S4 - Neuro & History
 ══════════════════════════ -->
 <div class="screen" id="s4">
   <div class="card">
@@ -974,7 +1019,7 @@
         <button class="yn-btn" data-yn="numbness" data-v="Yes" onclick="yn(this)">Yes</button>
         <button class="yn-btn" data-yn="numbness" data-v="No"  onclick="yn(this)">No</button>
       </div>
-      <input type="text" class="form-input" id="numbness_loc" placeholder="If yes — where? e.g. left hand, right foot" style="margin-top:8px;" />
+      <input type="text" class="form-input" id="numbness_loc" placeholder="If yes - where? e.g. left hand, right foot" style="margin-top:8px;" />
     </div>
 
     <div class="form-group">
@@ -983,7 +1028,7 @@
         <button class="yn-btn" data-yn="weakness" data-v="Yes" onclick="yn(this)">Yes</button>
         <button class="yn-btn" data-yn="weakness" data-v="No"  onclick="yn(this)">No</button>
       </div>
-      <input type="text" class="form-input" id="weakness_loc" placeholder="If yes — where?" style="margin-top:8px;" />
+      <input type="text" class="form-input" id="weakness_loc" placeholder="If yes - where?" style="margin-top:8px;" />
     </div>
 
     <div class="form-group" style="margin-bottom:0;">
@@ -992,7 +1037,7 @@
         <button class="yn-btn" data-yn="scar" data-v="Yes" onclick="yn(this)">Yes</button>
         <button class="yn-btn" data-yn="scar" data-v="No"  onclick="yn(this)">No</button>
       </div>
-      <input type="text" class="form-input" id="scar_loc" placeholder="If yes — where?" style="margin-top:8px;" />
+      <input type="text" class="form-input" id="scar_loc" placeholder="If yes - where?" style="margin-top:8px;" />
     </div>
   </div>
 
@@ -1061,7 +1106,7 @@
 </div>
 
 <!-- ══════════════════════════
-     S5 — Goals Detail
+     S5 - Goals Detail
 ══════════════════════════ -->
 <div class="screen" id="s5">
   <div class="card">
@@ -1085,7 +1130,7 @@
         <button class="yn-btn" data-yn="other_provider" data-v="Yes" onclick="yn(this)">Yes</button>
         <button class="yn-btn" data-yn="other_provider" data-v="No"  onclick="yn(this)">No</button>
       </div>
-      <input type="text" class="form-input" id="other_provider_name" placeholder="If yes — who?" style="margin-top:8px;" />
+      <input type="text" class="form-input" id="other_provider_name" placeholder="If yes - who?" style="margin-top:8px;" />
     </div>
   </div>
 
@@ -1097,11 +1142,11 @@
 </div>
 
 <!-- ══════════════════════════
-     S6 — Contact Info
+     S6 - Contact Info
 ══════════════════════════ -->
 <div class="screen" id="s6">
   <div class="card">
-    <div class="q-step">Step 6 of 6 — Almost Done!</div>
+    <div class="q-step">Step 6 of 6 - Almost Done!</div>
     <div class="q-title">Where should we send your results?</div>
     <div class="q-sub">Dr. Bridgeman's team will review your intake and follow up within 24 hours.</div>
 
@@ -1147,20 +1192,40 @@
 </div>
 
 <!-- ══════════════════════════
-     S7 — Thank You
+     S7 - Results
 ══════════════════════════ -->
 <div class="screen" id="s7">
   <div class="ty-hero">
     <span class="icon">✅</span>
     <h2>Assessment<br><em>Received!</em></h2>
-    <p>Dr. Bridgeman's team has your intake and will be in touch within 24 hours to discuss next steps and get you scheduled.</p>
+    <p>Dr. Bridgeman will personally review your results before your visit. Your personalized mobility protocol is below.</p>
   </div>
+
+  <!-- Score card -->
+  <div class="card">
+    <div class="score-wrap">
+      <div class="score-ring" id="scoreRing">
+        <div class="score-num" id="scoreNum">--</div>
+        <div class="score-of">/ 100</div>
+      </div>
+      <div class="score-label" id="scoreLabel">Mobility Score</div>
+      <div class="score-grade" id="scoreGrade"></div>
+    </div>
+  </div>
+
+  <!-- Priority areas + protocols -->
+  <div class="card">
+    <div style="font-size:15px;font-weight:800;color:var(--navy);margin-bottom:4px;letter-spacing:-.01em;">Your Priority Areas</div>
+    <div style="font-size:12px;color:var(--gray-400);margin-bottom:16px;font-weight:500;">Ranked highest to lowest. Lower score = less restriction.</div>
+    <div id="priorityList"></div>
+  </div>
+
   <div class="cta-card">
-    <p>Questions in the meantime? Give us a call.</p>
+    <p>Our team will be in touch within 24 hours to discuss next steps and get you scheduled.</p>
     <div class="cta-phone">📞 (425) 753-2235</div>
     <div class="cta-addr">827 Bellevue Way NE Suite 200 · Bellevue, WA 98004</div>
   </div>
-  <div class="disclaimer">⚕️ This assessment is a screening tool and does not replace a clinical evaluation. Dr. Bridgeman will review your responses before making any clinical recommendations.</div>
+  <div class="disclaimer">⚕️ These recommendations are based on your self-reported responses and are not a substitute for clinical evaluation. Dr. Bridgeman will review your profile before making any clinical decisions.</div>
 </div>
 
 </div><!-- /quiz-wrap -->
@@ -1168,6 +1233,346 @@
 <script>
 var A = {}; // answers store
 var STEPS = 6;
+
+// ── Protocol definitions (from BHS Mobility Booklet v5) ──
+var PROTOCOLS = [
+  {
+    id: 'neck', name: 'Neck', icon: '🔵',
+    keys: ['neck_stiffness','neck_pain'],
+    stretches: [
+      { name: 'Sideways Head Pull', level: 'Level 1' }
+    ],
+    rollouts: [],
+    trigger: ['Trapezius']
+  },
+  {
+    id: 'jaw', name: 'Jaw (TMJ)', icon: '🔵',
+    keys: ['jaw_pain'],
+    stretches: [],
+    rollouts: [],
+    trigger: []
+  },
+  {
+    id: 'thoracic', name: 'Upper & Mid Back', icon: '🔵',
+    keys: ['thoracic_stiffness','thoracic_pain'],
+    stretches: [
+      { name: 'Lower Back & Core Stretch', level: 'Level 2' }
+    ],
+    rollouts: [
+      { name: 'Back Rollout', level: 'Level 1' },
+      { name: 'Advanced Back Rollout', level: 'Level 2' }
+    ],
+    trigger: ['Trapezius']
+  },
+  {
+    id: 'shoulders', name: 'Shoulders', icon: '🔵',
+    keys: ['left_shoulder_stiffness','left_shoulder_pain','right_shoulder_stiffness','right_shoulder_pain'],
+    stretches: [
+      { name: 'Corner / Doorway Stretch', level: 'Level 1' },
+      { name: 'Dowel Over/Back', level: 'Level 1' },
+      { name: 'Dowel Alternating Grip', level: 'Level 1' },
+      { name: 'Shoulder Stretch', level: 'Level 2' }
+    ],
+    rollouts: [
+      { name: 'Shoulder Rollout', level: 'Level 2' }
+    ],
+    trigger: ['Posterior Deltoid', 'Chest']
+  },
+  {
+    id: 'elbows', name: 'Elbows & Forearms', icon: '🔵',
+    keys: ['left_elbow_stiffness','left_elbow_pain','right_elbow_stiffness','right_elbow_pain'],
+    stretches: [
+      { name: 'Triceps Stretch', level: 'Level 2' }
+    ],
+    rollouts: [
+      { name: 'Forearm Rollout', level: 'Level 2' },
+      { name: 'Biceps Rollout', level: 'Level 2' },
+      { name: 'Triceps Rollout', level: 'Level 2' }
+    ],
+    trigger: []
+  },
+  {
+    id: 'wrists', name: 'Wrists & Hands', icon: '🔵',
+    keys: ['left_wrist_stiffness','left_wrist_pain','right_wrist_stiffness','right_wrist_pain'],
+    stretches: [
+      { name: 'Wrist Stretch', level: 'Level 1' },
+      { name: 'Wrist Mobility', level: 'Level 2' },
+      { name: 'Thumb Mobility', level: 'Level 2' }
+    ],
+    rollouts: [
+      { name: 'Forearm Rollout', level: 'Level 2' }
+    ],
+    trigger: []
+  },
+  {
+    id: 'low_back', name: 'Low Back', icon: '🔵',
+    keys: ['low_back_stiffness','low_back_pain'],
+    stretches: [
+      { name: 'Lower Back & Core Stretch', level: 'Level 2' },
+      { name: 'Latissimus Dorsi Stretch', level: 'Level 2' }
+    ],
+    rollouts: [
+      { name: 'Back Rollout', level: 'Level 1' },
+      { name: 'Advanced Back Rollout', level: 'Level 2' }
+    ],
+    trigger: []
+  },
+  {
+    id: 'si', name: 'SI Joint / Pelvis', icon: '🔵',
+    keys: ['si_stiffness','si_pain'],
+    stretches: [
+      { name: 'Piriformis Stretch', level: 'Level 1' },
+      { name: 'Butterfly Stretch', level: 'Level 2' }
+    ],
+    rollouts: [
+      { name: 'Piriformis Rollout', level: 'Level 1' }
+    ],
+    trigger: ['Glutes']
+  },
+  {
+    id: 'hips', name: 'Hips & Glutes', icon: '🔵',
+    keys: ['left_hip_stiffness','left_hip_pain','right_hip_stiffness','right_hip_pain'],
+    stretches: [
+      { name: 'Piriformis Stretch', level: 'Level 1' },
+      { name: 'Butterfly Stretch', level: 'Level 2' },
+      { name: 'Latissimus Dorsi Stretch', level: 'Level 2' }
+    ],
+    rollouts: [
+      { name: 'Piriformis Rollout', level: 'Level 1' },
+      { name: 'Groin Rollout', level: 'Level 2' }
+    ],
+    trigger: ['Glutes']
+  },
+  {
+    id: 'knees', name: 'Knees & Quads', icon: '🔵',
+    keys: ['left_knee_stiffness','left_knee_pain','right_knee_stiffness','right_knee_pain'],
+    stretches: [
+      { name: 'Advanced Quad Stretch Pt. 1', level: 'Level 1' },
+      { name: 'Advanced Quad Stretch Pt. 2', level: 'Level 1' },
+      { name: 'Bend & Reach', level: 'Level 2' }
+    ],
+    rollouts: [
+      { name: 'Quad Rollout', level: 'Level 1' },
+      { name: 'Advanced Quad Rollout', level: 'Level 2' },
+      { name: 'IT Band Rollout', level: 'Level 2' },
+      { name: 'Floss Technique', level: 'Level 2' }
+    ],
+    trigger: []
+  },
+  {
+    id: 'hamstrings', name: 'Hamstrings', icon: '🔵',
+    keys: ['left_knee_stiffness','right_knee_stiffness'], // proxy
+    stretches: [
+      { name: 'Banded Hamstring Stretch', level: 'Level 1' },
+      { name: 'Bend & Reach', level: 'Level 2' },
+      { name: 'Three Way Toe Touches', level: 'Level 2' }
+    ],
+    rollouts: [
+      { name: 'Hamstring Rollout', level: 'Level 1' }
+    ],
+    trigger: []
+  },
+  {
+    id: 'ankles', name: 'Ankles & Calves', icon: '🔵',
+    keys: ['left_ankle_stiffness','left_ankle_pain','right_ankle_stiffness','right_ankle_pain'],
+    stretches: [
+      { name: 'Gastrocnemius / Soleus Stretch', level: 'Level 1' },
+      { name: 'Three Way Gastrocnemius', level: 'Level 2' }
+    ],
+    rollouts: [
+      { name: 'Calf Rollout', level: 'Level 1' },
+      { name: 'Gastrocnemius Rollout (3-way)', level: 'Level 2' },
+      { name: 'Tibialis Anterior Rollout', level: 'Level 2' }
+    ],
+    trigger: []
+  },
+  {
+    id: 'feet', name: 'Feet & Toes', icon: '🔵',
+    keys: ['left_foot_pain','right_foot_pain'],
+    stretches: [
+      { name: 'Gastrocnemius / Soleus Stretch', level: 'Level 1' },
+      { name: 'Three Way Gastrocnemius', level: 'Level 2' }
+    ],
+    rollouts: [
+      { name: 'Calf Rollout', level: 'Level 1' }
+    ],
+    trigger: ['Foot']
+  }
+];
+
+// Max possible score across all joint scales (35 keys x 10)
+var MAX_SCORE = 350;
+
+function calcScore() {
+  var total = 0;
+  var allKeys = [
+    'neck_stiffness','neck_pain','jaw_pain',
+    'thoracic_stiffness','thoracic_pain',
+    'left_shoulder_stiffness','left_shoulder_pain','right_shoulder_stiffness','right_shoulder_pain',
+    'left_elbow_stiffness','left_elbow_pain','right_elbow_stiffness','right_elbow_pain',
+    'left_wrist_stiffness','left_wrist_pain','right_wrist_stiffness','right_wrist_pain',
+    'low_back_stiffness','low_back_pain','si_stiffness','si_pain',
+    'left_hip_stiffness','left_hip_pain','right_hip_stiffness','right_hip_pain',
+    'left_knee_stiffness','left_knee_pain','right_knee_stiffness','right_knee_pain',
+    'left_ankle_stiffness','left_ankle_pain','right_ankle_stiffness','right_ankle_pain',
+    'left_foot_pain','right_foot_pain'
+  ];
+  allKeys.forEach(function(k) { total += (A[k] || 0); });
+  return total;
+}
+
+function regionScore(keys) {
+  return keys.reduce(function(s, k) { return s + (A[k] || 0); }, 0);
+}
+
+function mobilityScore(rawTotal) {
+  // Higher mobility score = better (less restriction)
+  return Math.max(0, Math.round(100 - (rawTotal / MAX_SCORE) * 100));
+}
+
+function scoreGrade(ms) {
+  if (ms >= 85) return { label: 'Excellent Mobility', cls: 'grade-a' };
+  if (ms >= 65) return { label: 'Good - Some Areas to Address', cls: 'grade-b' };
+  if (ms >= 45) return { label: 'Moderate - Several Areas Need Attention', cls: 'grade-c' };
+  return          { label: 'Significant Restriction - Priority Treatment Recommended', cls: 'grade-d' };
+}
+
+function priorityScoreLabel(rs, maxRs) {
+  var pct = rs / maxRs;
+  if (pct <= 0)    return null; // no issue
+  if (pct < 0.25)  return { text: 'Mild',        cls: 'low' };
+  if (pct < 0.50)  return { text: 'Moderate',    cls: 'mid' };
+  if (pct < 0.75)  return { text: 'Significant', cls: 'high' };
+  return                   { text: 'Severe',      cls: 'sev' };
+}
+
+function buildResults(fname) {
+  var raw  = calcScore();
+  var ms   = mobilityScore(raw);
+  var grad = scoreGrade(ms);
+
+  // Score ring
+  document.getElementById('scoreNum').textContent   = ms;
+  document.getElementById('scoreRing').className    = 'score-ring ' + grad.cls;
+  document.getElementById('scoreLabel').textContent = 'Mobility Score';
+  document.getElementById('scoreGrade').textContent  = grad.label;
+
+  // Build priority list - score each region, sort, filter out 0s
+  var regions = PROTOCOLS.map(function(p) {
+    var rs   = regionScore(p.keys);
+    var maxR = p.keys.length * 10;
+    return { p: p, rs: rs, maxR: maxR };
+  });
+
+  regions.sort(function(a, b) { return b.rs - a.rs; });
+
+  var list = document.getElementById('priorityList');
+  list.innerHTML = '';
+
+  var hasAny = false;
+  regions.forEach(function(r) {
+    var lbl = priorityScoreLabel(r.rs, r.maxR);
+    if (!lbl) return; // skip zero-score regions
+    hasAny = true;
+    var p   = r.p;
+
+    var el = document.createElement('div');
+    el.className = 'priority-area';
+
+    var header = '<div class="priority-header">';
+    header += '<span style="font-size:15px;">' + p.icon + '</span>';
+    header += '<span class="priority-name">' + p.name + '</span>';
+    header += '<span class="score-num-inline" style="font-size:12px;font-weight:800;color:var(--gray-600);">' + r.rs + ' pts</span>';
+    header += '<span class="priority-score ' + lbl.cls + '">' + lbl.text + '</span>';
+    header += '</div>';
+
+    var body = '';
+
+    if (p.stretches.length) {
+      body += '<div class="rx-section"><div class="rx-type">🤸 Mobility / Stretches</div><div class="rx-pills">';
+      p.stretches.forEach(function(e) {
+        body += '<span class="rx-pill stretch">' + e.name + ' <span style="opacity:.7;">(' + e.level + ')</span></span>';
+      });
+      body += '</div></div>';
+    }
+
+    if (p.rollouts.length) {
+      body += '<div class="rx-section"><div class="rx-type">🔄 Foam Roller Protocol</div><div class="rx-pills">';
+      p.rollouts.forEach(function(e) {
+        body += '<span class="rx-pill rollout">' + e.name + ' <span style="opacity:.7;">(' + e.level + ')</span></span>';
+      });
+      body += '</div></div>';
+    }
+
+    if (p.trigger.length && r.rs >= 4) {
+      body += '<div class="rx-section"><div class="rx-type">🎯 Trigger Point Therapy</div><div class="rx-pills">';
+      p.trigger.forEach(function(t) {
+        body += '<span class="rx-pill trigger">' + t + '</span>';
+      });
+      body += '</div></div>';
+    }
+
+    el.innerHTML = header + body;
+    list.appendChild(el);
+  });
+
+  if (!hasAny) {
+    list.innerHTML = '<p style="color:var(--green);font-weight:700;font-size:14px;text-align:center;padding:10px 0;">🌟 No significant restrictions detected. Keep up the great work!</p>';
+  }
+
+  return buildProtocolText(fname, ms, grad, regions);
+}
+
+function buildProtocolText(fname, ms, grad, regions) {
+  var lines = [];
+  lines.push('Hi ' + fname + ',');
+  lines.push('');
+  lines.push('Thank you for completing your Full Body Mobility Assessment with Bridgeman Health Solutions.');
+  lines.push('');
+  lines.push('YOUR MOBILITY SCORE: ' + ms + '/100 - ' + grad.label);
+  lines.push('(Lower restriction = higher score)');
+  lines.push('');
+  lines.push('YOUR PERSONALIZED PROTOCOL');
+  lines.push('Based on your responses, here are the exercises from the BHS Mobility Booklet that are most relevant for you:');
+  lines.push('');
+
+  var anyRx = false;
+  regions.forEach(function(r) {
+    var lbl = priorityScoreLabel(r.rs, r.maxR);
+    if (!lbl) return;
+    anyRx = true;
+    var p = r.p;
+    lines.push('--- ' + p.name.toUpperCase() + ' (' + lbl.text + ' | ' + r.rs + ' pts) ---');
+    if (p.stretches.length) {
+      lines.push('Mobility / Stretches:');
+      p.stretches.forEach(function(e) { lines.push('  • ' + e.name + ' (' + e.level + ')'); });
+    }
+    if (p.rollouts.length) {
+      lines.push('Foam Roller Protocol:');
+      p.rollouts.forEach(function(e) { lines.push('  • ' + e.name + ' (' + e.level + ')'); });
+    }
+    if (p.trigger.length && r.rs >= 4) {
+      lines.push('Trigger Point Therapy:');
+      p.trigger.forEach(function(t) { lines.push('  • ' + t); });
+    }
+    lines.push('');
+  });
+
+  if (!anyRx) lines.push('No significant restrictions detected. Keep up the great work!');
+
+  lines.push('Dr. Bridgeman will personally review these results and may adjust your protocol after your clinical evaluation.');
+  lines.push('');
+  lines.push('If you have any questions in the meantime:');
+  lines.push('(425) 753-2235');
+  lines.push('827 Bellevue Way NE Suite 200, Bellevue WA 98004');
+  lines.push('bridgemanhealthsolutions.com');
+  lines.push('');
+  lines.push('We look forward to helping you move and feel your best.');
+  lines.push('');
+  lines.push('- Dr. Brandon Bridgeman & The BHS Team');
+  lines.push('"I don\'t guess, I test."');
+  return lines.join('\n');
+}
 
 // ── Progress dots setup ──
 (function() {
@@ -1335,8 +1740,15 @@ function submitForm() {
   err.style.display = 'none';
 
   var btn = document.getElementById('submitBtn');
-  btn.textContent = 'Submitting…';
+  btn.textContent = 'Submitting...';
   btn.disabled = true;
+
+  // Build results screen and get patient email text
+  var patientEmailText = buildResults(fname);
+
+  // Mobility score for the subject line
+  var raw = calcScore();
+  var ms  = mobilityScore(raw);
 
   var payload = Object.assign({}, A, {
     name:                fname + ' ' + lname,
@@ -1373,11 +1785,12 @@ function submitForm() {
     ankle_movements:     collectChips('ankle_moves'),
     foot_pain_location:  collectChips('foot_loc'),
     // Email config
-    _subject:      'BHS Mobility Assessment — ' + fname + ' ' + lname,
-    _captcha:      'false',
-    _template:     'table',
-    _replyto:      email,
-    _autoresponse: 'Hi ' + fname + ',\n\nThank you for completing your Full Body Mobility Assessment with Bridgeman Health Solutions.\n\nDr. Bridgeman has received your intake and will personally review your responses before your visit. Our team will be in touch within 24 hours to discuss next steps and get you scheduled.\n\nIf you have any questions in the meantime:\n\n(425) 753-2235\n827 Bellevue Way NE Suite 200, Bellevue WA 98004\nbridgemanhealthsolutions.com\n\nWe look forward to helping you move and feel your best.\n\n- Dr. Brandon Bridgeman & The BHS Team\n\n"I do not guess, I test."\nBridgeman Health Solutions | Sports Chiropractic | Bellevue, WA',
+    mobility_score:  ms + '/100',
+    _subject:        'BHS Mobility Assessment (' + ms + '/100) — ' + fname + ' ' + lname,
+    _captcha:        'false',
+    _template:       'table',
+    _replyto:        email,
+    _autoresponse:   patientEmailText,
   });
 
   fetch('https://formsubmit.co/ajax/drbrandonbridgeman@gmail.com', {
